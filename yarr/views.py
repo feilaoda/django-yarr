@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.template import loader, Context
 from django.utils.html import escape
+from django.core.exceptions import ObjectDoesNotExist
 
 from yarr import constants, settings, utils, models, forms
 from yarr.constants import (
@@ -303,6 +304,17 @@ def feed_form(
                 # ++ fill out the name and other feed details, and grab initial
                 # ++ entries. However, feedparser isn't thread-safe yet, so for
                 # ++ now we just have to wait for the next scheduled check
+                feed = models.Feed.objects.filter(feed_url=request.POST.get('feed_url', None)).first()
+                
+                if feed is not None:
+                    messages.success(
+                    request,
+                    'Feed already exists.',
+                    )
+                    return HttpResponseRedirect(
+                        reverse('yarr-feeds')
+                    )
+                    
                 feed = feed_form.save(commit=False)
                 feed.title = feed.feed_url
                 feed.user = request.user
