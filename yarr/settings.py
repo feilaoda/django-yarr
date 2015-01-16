@@ -47,13 +47,13 @@ SOCKET_TIMEOUT = getattr(settings, 'YARR_SOCKET_TIMEOUT', 15)
 # Minimum and maximum interval for checking a feed, in minutes
 # The minimum interval must match the interval that the cron job runs at,
 # otherwise some feeds may not get checked on time
-MINIMUM_INTERVAL = getattr(settings, 'YARR_MINIMUM_INTERVAL', 30)
-MAXIMUM_INTERVAL = getattr(settings, 'YARR_MAXIMUM_INTERVAL', 24 * 60)
+MINIMUM_INTERVAL = getattr(settings, 'YARR_MINIMUM_INTERVAL', 10)
+MAXIMUM_INTERVAL = getattr(settings, 'YARR_MAXIMUM_INTERVAL', 32*60)
 
 # Default frequency to check a feed, in minutes
 # Defaults to just under 24 hours (23:45) to avoid issues with slow responses
 # Note: this will be removed in a future version
-FREQUENCY = getattr(settings, 'YARR_FREQUENCY', 6 * 60)
+FREQUENCY = getattr(settings, 'YARR_FREQUENCY', 60)
 
 # Number of days to keep a read item which is no longer in the feed
 # Set this to 0 to expire immediately, -1 to never expire

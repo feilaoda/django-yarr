@@ -21,6 +21,10 @@ def _build_frequency_choices():
     HOUR = 60
     DAY = 60 * 24
     MIN = settings.MINIMUM_INTERVAL
+    choices.append((24*60, "24 hours"))
+    choices.append((3*60, "3 hours"))
+    choices.append((60, "1 hour"))
+    
     while current >= MIN:
         # Create humanised relative time
         # There are many ways to do this, but to avoid introducing a dependency
