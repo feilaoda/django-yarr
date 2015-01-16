@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from optparse import make_option
 
 from django.conf import settings

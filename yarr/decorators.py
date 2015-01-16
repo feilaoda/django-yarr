@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from yarr import settings
 
 def with_socket_timeout(fn):
