@@ -18,6 +18,14 @@ import feedparser
 from yarr import settings, managers
 from yarr.constants import ENTRY_UNREAD, ENTRY_READ, ENTRY_SAVED
 
+import re
+try:
+    # UCS-4
+    highpoints = re.compile(u'[\U00010000-\U0010ffff]')
+except re.error:
+    # UCS-2
+    highpoints = re.compile(u'[\uD800-\uDBFF][\uDC00-\uDFFF]')
+# mytext = u'<some string containing 4-byte chars>'
 
 ###############################################################################
 #                                                               Setup
@@ -534,7 +542,9 @@ class Entry(models.Model):
         # Default the date
         if self.date is None:
             self.date = datetime.datetime.now()
-        
+        # print(self.content)
+        self.content = highpoints.sub(u'\u25FD', self.content)
+
         # Save
         super(Entry, self).save(*args, **kwargs)
         
